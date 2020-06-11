@@ -13,7 +13,6 @@
 #include <linux/sched/sysctl.h>
 #include <linux/cpuset.h>
 #include <linux/boost_control.h>
-#include <linux/sched.h>
 #include <linux/sched/sysctl.h>
 
 unsigned long last_input_time;
@@ -270,9 +269,7 @@ static int fb_notifier_cb(struct notifier_block *nb, unsigned long action,
 		#else
 		__cpu_input_boost_kick_max(b, CONFIG_WAKE_BOOST_DURATION_MS);
 		#endif
-		disable_schedtune_boost(0);
 	} else {
-		disable_schedtune_boost(1);
 		set_bit(SCREEN_OFF, &b->state);
 		wake_up(&b->boost_waitq);
 	}
